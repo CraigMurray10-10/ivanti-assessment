@@ -130,7 +130,6 @@ namespace TechnicalTest.Core.Services
 
         public GridValue ProcessGridValueFromTriangularShape(Grid grid, Triangle triangle)
         {
-            // TODO: Calculate the grid value.
             string? row;
             int col;
             string outerVertexPos;
