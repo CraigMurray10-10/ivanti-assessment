@@ -45,7 +45,32 @@ namespace TechnicalTest.API.Controllers
 
             // TODO: Create ResponseModel with Coordinates and return as OK with responseModel.
 
-            return Ok();
+            int shapeType = calculateCoordinatesRequest.ShapeType;
+            int gridSize = calculateCoordinatesRequest.Grid.Size;
+            // String gridValueString = calculateCoordinatesRequest.GridValue;
+            Grid grid = new Grid(gridSize);
+            GridValue gridValue = new GridValue(calculateCoordinatesRequest.GridValue);
+
+            
+            ShapeEnum shapeEnum;
+
+            switch (shapeType) {
+                case 0:
+                    shapeEnum = ShapeEnum.None;
+                    return BadRequest();
+                case 1:
+                    shapeEnum = ShapeEnum.Triangle;
+                    Shape? shapeResult = _shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
+                    if (shapeResult == null)
+                        return BadRequest("Error: Null result returned from coordinates calculator");
+                    else
+                        return Ok(shapeResult);
+                default:
+                    shapeEnum = ShapeEnum.Other;
+                    return BadRequest();
+            }
+
+            // return Ok();
         }
 
         /// <summary>

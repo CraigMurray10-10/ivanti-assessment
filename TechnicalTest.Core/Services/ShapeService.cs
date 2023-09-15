@@ -51,89 +51,12 @@ namespace TechnicalTest.Core.Services
                 V2.X = V1.X - 10;
             }
             else {                  // column is an odd number, so outer vertex is in bottom-left pos
-                V1.X = (col - 1)*5; // since vertex is shared with previous col, use that to calc coords
+                V1.X = (col - 1)*5; // since vertex is shared with previous col (or is at 0), use that to calc coords 
                 
                 V1.Y = V3.Y;        // given position is bottom-left, can find matching X/Y values accordingly
                 V2.X = V1.X;        
                 V3.X = V2.X + 10;
             }
-
-            // switch(col) {
-            //     case 1:
-            //         V1.X = 0;
-            //         V1.Y = V3.Y;
-            //         V2.X = 0;
-            //         V3.X = 10;
-            //         break;
-            //     case 2:
-            //         V1.X = 10;
-            //         V1.Y = V2.Y;
-            //         V2.X = 0;
-            //         V3.X = 10;
-            //         break;
-            //     case 3:
-            //         V1.X = 10;
-            //         V1.Y = V3.Y;
-            //         V2.X = 10;
-            //         V3.X = 20;
-            //         break;
-            //     case 4:
-            //         V1.X = 20;
-            //         V1.Y = V2.Y;
-            //         V2.X = 10;
-            //         V3.X = 20;
-            //         break;
-            //     case 5:
-            //         V1.X = 20;
-            //         V1.Y = V3.Y;
-            //         V2.X = 20;
-            //         V3.X = 30;
-            //         break;
-            //     case 6:
-            //         V1.X = 30;
-            //         V1.Y = V2.Y;
-            //         V2.X = 20;
-            //         V3.X = 30;
-            //         break;
-            //     case 7:
-            //         V1.X = 30;
-            //         V1.Y = V3.Y;
-            //         V2.X = 30;
-            //         V3.X = 40;
-            //         break;
-            //     case 8:
-            //         V1.X = 40;
-            //         V1.Y = V2.Y;
-            //         V2.X = 30;
-            //         V3.X = 40;
-            //         break;
-            //     case 9:
-            //         V1.X = 40;
-            //         V1.Y = V3.Y;
-            //         V2.X = 40;
-            //         V3.X = 50;
-            //         break;
-            //     case 10:
-            //         V1.X = 50;
-            //         V1.Y = V2.Y;
-            //         V2.X = 40;
-            //         V3.X = 50;
-            //         break;
-            //     case 11:
-            //         V1.X = 50;
-            //         V1.Y = V3.Y;
-            //         V2.X = 50;
-            //         V3.X = 60;
-            //         break;
-            //     case 12:
-            //         V1.X = 60;
-            //         V1.Y = V2.Y;
-            //         V2.X = 50;
-            //         V3.X = 60;
-            //         break;
-            //     default:
-            //         break;
-            // }
 
             return new Shape(new List<Coordinate>
             {
