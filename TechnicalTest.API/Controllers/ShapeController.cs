@@ -52,7 +52,7 @@ namespace TechnicalTest.API.Controllers
 
             ShapeEnum shapeEnum;
             CalculateCoordinatesResponseDTO responseModel = new CalculateCoordinatesResponseDTO();
-            CalculateCoordinatesResponseDTO.Coordinate coordinateDTO = new CalculateCoordinatesResponseDTO.Coordinate(0,0);
+            // CalculateCoordinatesResponseDTO.Coordinate coordinateDTO = new CalculateCoordinatesResponseDTO.Coordinate(0,0);
 
             switch (shapeType) {
                 case 0:
@@ -64,15 +64,15 @@ namespace TechnicalTest.API.Controllers
                     if (shapeResult == null)
                         return BadRequest("Error: Null result returned from coordinates calculator");
                     else
-                        // responseModel.Coordinates = shapeResult.Coordinates; 
+                        responseModel.Coordinates = shapeResult.Coordinates; 
                         // unsure best way to convert Model coordinate class to inner DTO coordinate class
-                        foreach (Coordinate coordinate in shapeResult.Coordinates) {
-                            int xDTO = coordinate.X;
-                            int yDTO = coordinate.Y;
-                            coordinateDTO.X = xDTO;
-                            coordinateDTO.Y = yDTO;
-                            responseModel.Coordinates.Add(coordinateDTO); 
-                        }
+                        // foreach (Coordinate coordinate in shapeResult.Coordinates) {
+                        //     int xDTO = coordinate.X;
+                        //     int yDTO = coordinate.Y;
+                        //     coordinateDTO.X = xDTO;
+                        //     coordinateDTO.Y = yDTO;
+                        //     responseModel.Coordinates.Add(coordinateDTO); 
+                        // }
                         
                         return Ok(responseModel);
                 default:
