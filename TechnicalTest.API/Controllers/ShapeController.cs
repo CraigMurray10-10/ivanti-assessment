@@ -47,12 +47,12 @@ namespace TechnicalTest.API.Controllers
 
             int shapeType = calculateCoordinatesRequest.ShapeType;
             int gridSize = calculateCoordinatesRequest.Grid.Size;
-            // String gridValueString = calculateCoordinatesRequest.GridValue;
             Grid grid = new Grid(gridSize);
             GridValue gridValue = new GridValue(calculateCoordinatesRequest.GridValue);
 
-            
             ShapeEnum shapeEnum;
+            CalculateCoordinatesResponseDTO responseModel = new CalculateCoordinatesResponseDTO();
+            CalculateCoordinatesResponseDTO.Coordinate coordinateDTO = new CalculateCoordinatesResponseDTO.Coordinate(0,0);
 
             switch (shapeType) {
                 case 0:
@@ -64,7 +64,17 @@ namespace TechnicalTest.API.Controllers
                     if (shapeResult == null)
                         return BadRequest("Error: Null result returned from coordinates calculator");
                     else
-                        return Ok(shapeResult);
+                        // responseModel.Coordinates = shapeResult.Coordinates; 
+                        // unsure best way to convert Model coordinate class to inner DTO coordinate class
+                        foreach (Coordinate coordinate in shapeResult.Coordinates) {
+                            int xDTO = coordinate.X;
+                            int yDTO = coordinate.Y;
+                            coordinateDTO.X = xDTO;
+                            coordinateDTO.Y = yDTO;
+                            responseModel.Coordinates.Add(coordinateDTO); 
+                        }
+                        
+                        return Ok(responseModel);
                 default:
                     shapeEnum = ShapeEnum.Other;
                     return BadRequest();
@@ -99,7 +109,37 @@ namespace TechnicalTest.API.Controllers
 
             // TODO: Generate a ResponseModel based on the result and return it in Ok();
 
-            return Ok();
+            int shapeType = gridValueRequest.ShapeType;
+            int gridSize = gridValueRequest.Grid.Size;
+            Grid grid = new Grid(gridSize);            
+            
+            ShapeEnum shapeEnum;
+            CalculateGridValueResponseDTO responseModel = new CalculateGridValueResponseDTO("",0);
+
+            switch (shapeType) {
+                case 0:
+                    shapeEnum = ShapeEnum.None;
+                    return BadRequest();
+                case 1:
+                    shapeEnum = ShapeEnum.Triangle;
+
+                    // ? way to determine order of coordinates list?
+                    Shape shape = new Triangle(gridValueRequest.Coordinates[0], gridValueRequest.Coordinates[1], gridValueRequest.Coordinates[2]);
+                    GridValue? gridValueResult = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
+
+                    if (gridValueResult == null)
+                        return BadRequest("Error: Null result returned from coordinates calculator");
+                    else
+                        responseModel.Row = gridValueResult.Row;
+                        responseModel.Column = gridValueResult.Column;
+
+                        return Ok(responseModel);
+                default:
+                    shapeEnum = ShapeEnum.Other;
+                    return BadRequest();
+            }
+
+            // return Ok();
         }
     }
 }
