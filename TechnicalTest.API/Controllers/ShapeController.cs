@@ -100,7 +100,7 @@ namespace TechnicalTest.API.Controllers
                     Shape shape = new Triangle(gridValueRequest.Coordinates[0], gridValueRequest.Coordinates[1], gridValueRequest.Coordinates[2]);
                     GridValue? gridValueResult = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
 
-                    if (gridValueResult == null)
+                    if (gridValueResult == null || gridValueResult.Row == null || gridValueResult.Column == 0)
                         return BadRequest("Error: Null result returned from grid value calculator");
                     else
                         responseModel.Row = gridValueResult.Row;

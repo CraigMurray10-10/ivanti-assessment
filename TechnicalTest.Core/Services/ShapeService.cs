@@ -72,8 +72,13 @@ namespace TechnicalTest.Core.Services
             int col;
             string outerVertexPos;
 
-            Coordinate V3 = triangle.BottomRightVertex;
+            
             Coordinate V1 = triangle.OuterVertex;
+            Coordinate V2 = triangle.TopLeftVertex;
+            Coordinate V3 = triangle.BottomRightVertex;
+
+            
+
             switch(V3.Y) {
                 case 10:
                     row = "A";
