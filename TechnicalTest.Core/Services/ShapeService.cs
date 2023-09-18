@@ -40,8 +40,8 @@ namespace TechnicalTest.Core.Services
                     V3.Y = 60;
                     break;
                 default:
-                    break;
-            }
+                    return null;
+            }  
 
             if (col%2 == 0) {       // column is an even number, so outer vertex is in top-right pos
                 V1.X = col * 5;

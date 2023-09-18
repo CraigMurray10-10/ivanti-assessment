@@ -37,14 +37,6 @@ namespace TechnicalTest.API.Controllers
         [HttpPost]
         public IActionResult CalculateCoordinates([FromBody]CalculateCoordinatesDTO calculateCoordinatesRequest)
         {
-            // TODO: Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
-
-            // TODO: Call the Calculate function in the shape factory.
-
-            // TODO: Return BadRequest with error message if the calculate result is null
-
-            // TODO: Create ResponseModel with Coordinates and return as OK with responseModel.
-
             int shapeType = calculateCoordinatesRequest.ShapeType;
             int gridSize = calculateCoordinatesRequest.Grid.Size;
             Grid grid = new Grid(gridSize);
@@ -52,7 +44,6 @@ namespace TechnicalTest.API.Controllers
 
             ShapeEnum shapeEnum;
             CalculateCoordinatesResponseDTO responseModel = new CalculateCoordinatesResponseDTO();
-            // CalculateCoordinatesResponseDTO.Coordinate coordinateDTO = new CalculateCoordinatesResponseDTO.Coordinate(0,0);
 
             switch (shapeType) {
                 case 0:
@@ -65,14 +56,6 @@ namespace TechnicalTest.API.Controllers
                         return BadRequest("Error: Null result returned from coordinates calculator");
                     else
                         responseModel.Coordinates = shapeResult.Coordinates; 
-                        // unsure best way to convert Model coordinate class to inner DTO coordinate class
-                        // foreach (Coordinate coordinate in shapeResult.Coordinates) {
-                        //     int xDTO = coordinate.X;
-                        //     int yDTO = coordinate.Y;
-                        //     coordinateDTO.X = xDTO;
-                        //     coordinateDTO.Y = yDTO;
-                        //     responseModel.Coordinates.Add(coordinateDTO); 
-                        // }
                         
                         return Ok(responseModel);
                 default:
@@ -99,16 +82,6 @@ namespace TechnicalTest.API.Controllers
         [HttpPost]
         public IActionResult CalculateGridValue([FromBody]CalculateGridValueDTO gridValueRequest)
         {
-	        // TODO: Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
-
-            // TODO: Create new Shape with coordinates based on the parameters from the DTO.
-
-            // TODO: Call the function in the shape factory to calculate grid value.
-
-            // TODO: If the GridValue result is null then return BadRequest with an error message.
-
-            // TODO: Generate a ResponseModel based on the result and return it in Ok();
-
             int shapeType = gridValueRequest.ShapeType;
             int gridSize = gridValueRequest.Grid.Size;
             Grid grid = new Grid(gridSize);            
@@ -128,7 +101,7 @@ namespace TechnicalTest.API.Controllers
                     GridValue? gridValueResult = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
 
                     if (gridValueResult == null)
-                        return BadRequest("Error: Null result returned from coordinates calculator");
+                        return BadRequest("Error: Null result returned from grid value calculator");
                     else
                         responseModel.Row = gridValueResult.Row;
                         responseModel.Column = gridValueResult.Column;
